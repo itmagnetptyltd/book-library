@@ -1,0 +1,53 @@
+# Written once by the itm-sdlc installer, and never rewritten.
+# Safe to edit: re-running the installer will not touch this file.
+
+# DO NOT ADD .brain/
+# It holds the requirements, decisions and constraints this project is built
+# against. It is the record, and it is always committed.
+
+# --- toolkit output ---
+.claude/itm-sdlc/node_modules/
+review-findings.json
+traceability.json
+golden-set.json
+gate-findings/
+
+# --- secrets ---
+.env
+.env.*
+!.env.example
+
+# --- editors and operating systems ---
+.idea/
+.vs/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- C# / .NET ---
+**/bin/**
+**/obj/**
+**/TestResults/**
+
+# --- JavaScript ---
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.next/**
+**/coverage/**
+**/playwright-report/**
+**/.claude/itm-sdlc/**
+
+# --- TypeScript ---
+**/node_modules/**
+**/dist/**
+**/build/**
+**/.next/**
+**/coverage/**
+**/playwright-report/**
+
+# --- Book Library ---
+# The Library itself is data, not source.
+src/data/

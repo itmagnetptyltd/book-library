@@ -1,0 +1,19 @@
+{
+  "name": "book-library",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Book Library — a local Book gallery with add and delete",
+  "type": "module",
+  "engines": {
+    "node": ">=20.17.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/",
+    "coverage": "node --test --experimental-test-coverage tests/",
+    "lint": "node --check src/config.js && node --check src/server.js && node --check src/http/read-form-body.js && node --check src/library/database.js && node --check src/library/library-store.js && node --check src/library/validate-book-details.js && node --check src/web/escape-html.js && node --check src/web/render-add-book-form.js && node --check src/web/render-book-card.js && node --check src/web/render-delete-confirmation.js && node --check src/web/render-home-page.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0"
+  }
+}

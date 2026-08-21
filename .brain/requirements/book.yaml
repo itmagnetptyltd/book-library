@@ -1,0 +1,451 @@
+# .brain/requirements/book.yaml
+#
+# Decomposition of the client brief for the Book Library project.
+# Source: .brain/requirements/BRIEF.md — Client brief, ITMagnet - Test, email 2026-08-19.
+# Clarified by: .brain/requirements/ANSWERS.md — client answers, recorded 2026-08-21,
+# in two replies. All 25 questions raised at decomposition are now answered.
+#
+# Every requirement here is `agreed`. AMBIGUITIES.md holds no open question.
+#
+# Terms are used exactly as `.brain/glossary.md` fixes them: Book, Library,
+# Book ID, Name, Author, Book card, Gallery, Home page, Add Book form.
+
+- id: REQ-BOOK-001
+  title: The Home page shows every Book in the Library as a Gallery of Book cards
+  module: BOOK
+  priority: must
+  status: in_progress
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("The home page should
+    display all books in a clean and attractive gallery/grid layout"); clarified
+    by client answers in ANSWERS.md, recorded 2026-08-21, first and second
+    replies
+  acceptance:
+    - given: The Library holds three Books
+      when: The Home page is opened
+      then: The Gallery shows three Book cards
+    - given: The Library holds a Book
+      when: The Home page is opened
+      then: A Book card for that Book is present in the Gallery
+    - given: The Library holds Books
+      when: The Home page is opened in a desktop browser on the local development PC
+      then: The Gallery shows the Book cards laid out as a grid of more than one column
+    - given: Two Books have been added, the second more recently than the first
+      when: The Home page is opened
+      then: The Book card for the more recently added Book appears before the Book card for the earlier one
+    - given: The Library holds no Books
+      when: The Home page is opened
+      then: A message stating that there are no Books yet and inviting the first Book to be added is shown in place of the Book cards
+    - given: The Library holds fifty Books
+      when: The Home page is opened
+      then: Fifty Book cards are shown, and no pagination control is present
+    - given: The Home page is open in a second browser tab and a Book has been added in the first
+      when: The second tab is reloaded
+      then: The Gallery in the second tab shows a Book card for that Book
+    - given: The Home page as delivered
+      when: Its appearance is reviewed
+      then: No brand, colour scheme, reference site or font is required to be matched, and a plain tidy layout satisfies the requirement
+  ambiguities: []
+  verified_by:
+    - tests/server/home-page.test.js
+  depends_on:
+    - REQ-BOOK-012
+
+- id: REQ-BOOK-002
+  title: Each Book card shows that Book's Book ID, Name, Author, Language and Price
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("with each book card
+    showing the Book ID, Name, Author, Language, and Price"); clarified by
+    client answers in ANSWERS.md, recorded 2026-08-21, first and second replies
+  acceptance:
+    - given: A Book whose Book ID is known
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Book ID
+    - given: A Book whose Name is known
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Name
+    - given: A Book whose Author is known
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Author
+    - given: A Book whose Language is known
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Language
+    - given: A Book whose Price is known
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Price
+    - given: A Book added through the Add Book form, in which no Book ID was entered by the person
+      when: Its Book card is shown in the Gallery
+      then: The card shows a Book ID
+    - given: A Book whose Language was entered as text not drawn from any predefined list
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Language text unchanged
+    - given: A Book whose Price is 350
+      when: Its Book card is shown in the Gallery
+      then: The card shows the Price with exactly two decimal places
+    - given: Any Book in the Library
+      when: Its Book card is shown in the Gallery
+      then: The Price is shown in BDT, and no other currency appears on any card
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-003
+  title: Every Book card carries a Delete control for the Book it shows
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("along with a Delete
+    option"; "Each book should have a Delete button to remove it from the
+    library"); clarified by client answers in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: A Book card is shown in the Gallery
+      when: The Home page is displayed
+      then: That card carries a Delete control
+    - given: The Library holds three Books
+      when: The Home page is displayed
+      then: Three Delete controls are present, one on each Book card
+    - given: A Book card is shown in the Gallery
+      when: The Home page is displayed
+      then: Exactly one Delete control is present on that card
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-004
+  title: The Home page carries a control labelled "+ Add Book"
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 (Add an "+ Add Book" button
+    on the home page)
+  acceptance:
+    - given: The application is running
+      when: The Home page is opened
+      then: A control labelled "+ Add Book" is present on the Home page
+  ambiguities: []
+
+- id: REQ-BOOK-005
+  title: The "+ Add Book" control opens the Add Book form as a modal over the Home page
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("button on the home page
+    that opens a popup/modal form"); clarified by client answers in ANSWERS.md,
+    recorded 2026-08-21
+  acceptance:
+    - given: The Home page is open and the Add Book form is not shown
+      when: The "+ Add Book" control is activated
+      then: The Add Book form is shown as a modal over the Home page
+    - given: The application is running
+      when: The Home page is first opened
+      then: The Add Book form is not shown
+    - given: The Add Book form is shown with all of a new Book's details entered
+      when: The form is submitted and the Book is added
+      then: The Add Book form is no longer shown
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-004
+
+- id: REQ-BOOK-006
+  title: The Add Book form takes the new Book's details from the person filling it in
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("a popup/modal form where
+    users can enter the book details"), read with the field list in the same
+    email ("each book card showing the Book ID, Name, Author, Language, and
+    Price"); clarified by client answers in ANSWERS.md, recorded 2026-08-21,
+    first and second replies
+  acceptance:
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents an entry control for Name
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents an entry control for Author
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents an entry control for Language
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents an entry control for Price
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents no entry control for Book ID
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents no control for choosing a currency
+    - given: The Add Book form is shown
+      when: A value is typed into an entry control and the form is redisplayed without being submitted
+      then: The typed value is still shown in that control
+    - given: The Add Book form is shown
+      when: A Language is entered as text not drawn from any predefined list
+      then: The form accepts that value
+    - given: The Add Book form is shown
+      when: A Price is entered that is not a number
+      then: The submission is refused
+    - given: The Add Book form is shown with Author, Language and Price entered and Name left empty
+      when: The form is submitted
+      then: The submission is refused
+    - given: The Add Book form is shown with Name, Language and Price entered and Author left empty
+      when: The form is submitted
+      then: The submission is refused
+    - given: The Add Book form is shown with Name, Author and Price entered and Language left empty
+      when: The form is submitted
+      then: The submission is refused
+    - given: The Add Book form is shown with Name, Author and Language entered and Price left empty
+      when: The form is submitted
+      then: The submission is refused
+    - given: No person has signed in
+      when: The Add Book form is opened and filled in
+      then: The form can be submitted, with no sign-in step required first
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-005
+
+- id: REQ-BOOK-007
+  title: Submitting the Add Book form adds the new Book to the Library
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("After submitting the form,
+    the new book should be added to the library"); clarified by client answers
+    in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: The Add Book form is shown with details entered for a new Book
+      when: The form is submitted
+      then: The Library returns a Book carrying exactly those entered details
+    - given: The Library holds two Books
+      when: A third Book is submitted through the Add Book form
+      then: The Library returns three Books
+    - given: The Add Book form is submitted with Name, Author, Language and Price entered and no Book ID
+      when: The Book is added
+      then: The Library returns that Book carrying a Book ID the application issued
+    - given: The Library already holds Books
+      when: A further Book is added
+      then: No two Books in the Library carry the same Book ID
+    - given: A Book has been added and then deleted
+      when: A further Book is added
+      then: The further Book carries a Book ID different from the deleted Book's Book ID
+    - given: The Add Book form is submitted with any one of Name, Author, Language or Price left empty
+      when: The submission is refused
+      then: No Book is added to the Library
+    - given: A submission that the application refuses
+      when: The Add Book form is submitted
+      then: An error message naming what is wrong is shown in the Add Book form
+    - given: A submission that the application refuses
+      when: The Add Book form is submitted
+      then: The values already entered are still shown in the form
+    - given: A Book has been added
+      when: The application is stopped and started again
+      then: The Library still returns that Book
+    - given: No person has signed in
+      when: The Add Book form is submitted with all details entered
+      then: The Book is added to the Library
+    - given: A Book has been added
+      when: Its Book card is shown in the Gallery
+      then: No control for changing that Book's details is present
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-006
+    - REQ-BOOK-012
+
+- id: REQ-BOOK-008
+  title: A Book added through the form appears in the Gallery immediately after submission
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("the new book should be
+    added to the library and immediately displayed in the gallery"); clarified
+    by client answers in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: The Home page is open and a new Book has been entered in the Add Book form
+      when: The form is submitted and the Book is added
+      then: A Book card for that Book is shown in the Gallery once the submission completes, without the person taking any further action
+    - given: The Home page is open in a second browser tab
+      when: A Book is added in the first tab and the second tab is then reloaded
+      then: The Gallery in the second tab shows a Book card for that Book
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-007
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-009
+  title: Using a Book card's Delete control removes that Book from the Library
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("Each book should have a
+    Delete button to remove it from the library"); clarified by client answers
+    in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: The Library holds a Book shown in the Gallery
+      when: That card's Delete control is activated and the deletion is confirmed
+      then: The Library no longer returns that Book
+    - given: The Library holds two Books
+      when: The Delete control on one of the two Book cards is activated and confirmed
+      then: The Library still returns the other Book, unchanged
+    - given: The Library holds a Book shown in the Gallery
+      when: That card's Delete control is activated
+      then: A confirmation is requested before the Book is deleted
+    - given: A confirmation has been requested for deleting a Book
+      when: The person declines it
+      then: The Library still returns that Book
+    - given: A Book has been deleted
+      when: The application is stopped and started again
+      then: The Library does not return that Book
+    - given: No person has signed in
+      when: A Book card's Delete control is activated and confirmed
+      then: The Book is removed from the Library
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-003
+    - REQ-BOOK-012
+
+- id: REQ-BOOK-010
+  title: A deleted Book's card stops being shown in the Gallery
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("Each book should have a
+    Delete button to remove it from the library"), read with the Gallery clause
+    in the same email ("The home page should display all books"); clarified by
+    client answers in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: The Gallery is shown and one of its Books has just been deleted
+      when: The Home page is next displayed
+      then: No Book card for the deleted Book is shown in the Gallery
+    - given: A Book has been deleted
+      when: The application is stopped, started again and the Home page opened
+      then: No Book card for the deleted Book is shown in the Gallery
+    - given: The Home page is open in a second browser tab
+      when: A Book is deleted in the first tab and the second tab is then reloaded
+      then: No Book card for the deleted Book is shown in the second tab
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-009
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-011
+  title: The application runs under Node.js on a local development PC
+  module: BOOK
+  priority: must
+  status: in_progress
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("Create a simple and modern
+    Book Library application using Node.js"; "easy to run on a local development
+    PC"); clarified by client answers in ANSWERS.md, recorded 2026-08-21, first
+    and second replies
+  acceptance:
+    - given: A local development PC running a Node.js version that is in active or maintenance support at the date of delivery, and a clean checkout of the repository
+      when: The documented start command is run
+      then: The application starts and reports the address it is serving on
+    - given: The application is running on that PC
+      when: A current version of any major desktop browser on the same PC opens that address
+      then: The Home page is returned
+    - given: The application as delivered
+      when: Its documented start procedure is followed
+      then: No hosting, domain or external service outside the local development PC is required for the Home page to be reachable from that PC
+    - given: The application as delivered
+      when: Its documented start procedure is followed
+      then: No operating system or browser version beyond a local development environment is required
+  ambiguities: []
+  verified_by:
+    - tests/server/server.test.js
+
+- id: REQ-BOOK-012
+  title: The Library is held in a data store outside the page that displays it
+  module: BOOK
+  priority: must
+  status: in_progress
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("use a simple data store");
+    clarified by client answers in ANSWERS.md, recorded 2026-08-21
+  acceptance:
+    - given: A Book has been added to the Library
+      when: The Home page is closed and opened again
+      then: That Book is among the Books the application returns for the Gallery
+    - given: A Book has been added to the Library
+      when: The application is stopped and started again
+      then: That Book is among the Books the application returns for the Gallery
+    - given: A Book has been added to the Library
+      when: The application's data store is inspected
+      then: That Book is present in a SQLite database file held with the application on the local development PC
+    - given: The application is running
+      when: Its data store is inspected
+      then: The Library is held on the local development PC, not in an external or hosted service
+    - given: A Book is in the Library
+      when: The application is used
+      then: No operation is offered that changes an existing Book's stored details
+  ambiguities: []
+  verified_by:
+    - tests/library/library-store.test.js
+
+- id: REQ-BOOK-013
+  title: The application declares only the dependencies it genuinely needs in order to run
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("avoid unnecessary
+    dependencies"); clarified by client answers in ANSWERS.md, recorded
+    2026-08-21
+  acceptance:
+    - given: The application as delivered
+      when: Its declared runtime dependencies are listed
+      then: Every entry carries a recorded reason naming the application behaviour that requires it
+    - given: A declared runtime dependency with no recorded reason
+      when: The application is reviewed
+      then: The review records that dependency as a finding to be removed or justified
+  ambiguities: []
+
+- id: REQ-BOOK-014
+  title: The Home page is usable in a desktop browser on the local development PC
+  module: BOOK
+  priority: must
+  status: agreed
+  version: 1
+  source: >-
+    Client brief, ITMagnet - Test, email 2026-08-19 ("The application should be
+    simple, responsive"); clarified by client answers in ANSWERS.md, recorded
+    2026-08-21, first and second replies
+  acceptance:
+    - given: The application is running
+      when: The Home page is displayed in a maximised desktop browser window on the local development PC
+      then: The Home page content fits within the window width, with no horizontal scrolling of the page
+    - given: The Home page is displayed in a desktop browser window
+      when: The window is narrowed
+      then: The Gallery reflows to fewer columns and the Home page content still fits within the window width, with no horizontal scrolling of the page
+    - given: The Home page is displayed in a desktop browser window at any width the window supports
+      when: A Book card is shown in the Gallery
+      then: That card shows all five of its fields without any of them being clipped out of view
+    - given: The application as delivered
+      when: Its behaviour on a phone or a tablet is considered
+      then: No phone or tablet layout is required, those devices being outside the agreed scope
+  ambiguities: []
+  depends_on:
+    - REQ-BOOK-001

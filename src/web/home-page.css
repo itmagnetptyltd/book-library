@@ -1,0 +1,245 @@
+/* Plain and tidy. The client confirmed on 2026-08-21 that no brand, colour
+   scheme, reference site or font has to be matched (REQ-BOOK-001, criterion 8),
+   so nothing here is imitating anything. */
+
+:root {
+  --page-background: #f6f7f9;
+  --card-background: #ffffff;
+  --ink: #1c1f23;
+  --ink-quiet: #5b6470;
+  --edge: #dfe3e8;
+  --radius: 10px;
+  --gap: 1.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 var(--gap) 3rem;
+  background: var(--page-background);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.page-header {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 0 1.5rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.page-main {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+/* The Gallery. More than one column on a desktop browser window, reflowing to
+   fewer as the window narrows (REQ-BOOK-001 criterion 3). */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-card {
+  background: var(--card-background);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+}
+
+.book-card__name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.empty-library {
+  margin: 0;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--edge);
+  border-radius: var(--radius);
+  background: var(--card-background);
+  color: var(--ink-quiet);
+  text-align: center;
+}
+
+/* The "+ Add Book" control. An anchor, not a button: the Add Book form's
+   visibility is a function of the URL, not of a script (ADR-0003). */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+
+.add-book-control {
+  display: inline-block;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--card-background);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* The Add Book form, over the Home page rather than instead of it. */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--gap);
+  background: rgba(28, 31, 35, 0.45);
+}
+
+.add-book-form {
+  width: min(28rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.5rem;
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  background: var(--card-background);
+}
+
+.add-book-form__title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.add-book-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--ink-quiet);
+}
+
+.add-book-form__field input {
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--edge);
+  border-radius: 6px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.add-book-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.add-book-form__submit {
+  padding: 0.55rem 1rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--card-background);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-book-form__cancel {
+  color: var(--ink-quiet);
+}
+
+.form-error {
+  margin: 0;
+  padding: 0.75rem 0.75rem 0.75rem 1.75rem;
+  border: 1px solid #d98a8a;
+  border-radius: 6px;
+  background: #fdf1f1;
+  color: #7a2222;
+  font-size: 0.9rem;
+}
+
+/* The Delete control on a Book card. An anchor to a confirmation, never the
+   deletion itself — a side-effecting GET is how a prefetcher empties a
+   Library (ADR-0003, REQ-BOOK-009). */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.book-card__delete {
+  align-self: flex-start;
+  font-size: 0.85rem;
+  color: #7a2222;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.delete-confirmation {
+  width: min(24rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+  background: var(--card-background);
+}
+
+.delete-confirmation__title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.delete-confirmation__book {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.delete-confirmation__warning {
+  margin: 0;
+  color: var(--ink-quiet);
+  font-size: 0.9rem;
+}
+
+.delete-confirmation__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.delete-confirmation__submit {
+  padding: 0.55rem 1rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: #7a2222;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-confirmation__cancel {
+  color: var(--ink-quiet);
+}
