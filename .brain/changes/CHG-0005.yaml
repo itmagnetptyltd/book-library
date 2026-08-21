@@ -1,0 +1,33 @@
+id: CHG-0005
+raised: 2026-08-21
+stream: scope_change
+title: "A named colour palette, font and visual treatment"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Use a consistent color palette (e.g., primary: #1E3A5F, accent: #F9A826). Apply rounded corners, shadows, and hover effects. Use a professional font (Inter, Poppins, etc.).
+affects: [REQ-BOOK-001]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: contradicts
+evidence: >-
+  REQ-BOOK-001@v1 final criterion requires that no brand, colour scheme,
+  reference site or font is required to be matched, and that a plain tidy
+  layout satisfies the requirement. The client wrote on 2026-08-21: A
+  plain, tidy, modern and user-friendly layout is acceptable. There is no
+  specific brand, colour scheme, reference site, or font that needs to be
+  followed.
+
+analysis:
+  dependants: [REQ-BOOK-014]
+  tests_invalidated: 7
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

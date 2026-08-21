@@ -1,0 +1,30 @@
+id: CHG-0012
+raised: 2026-08-21
+stream: scope_change
+title: "The form clears after a successful add, and the button is disabled while submitting"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Clear form after successful add. Disable "Add Book" button while submitting.
+affects: [REQ-BOOK-005, REQ-BOOK-006, REQ-BOOK-007]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-005@v1 criterion 3 requires only that the form is no longer
+  shown after a successful submission. No criterion constrains the state
+  of the submit control during a submission.
+
+analysis:
+  dependants: []
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

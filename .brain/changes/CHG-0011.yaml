@@ -1,0 +1,30 @@
+id: CHG-0011
+raised: 2026-08-21
+stream: scope_change
+title: "Search and filter Books"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  No Search/Filter: As library grows, search by title/author/language becomes essential.
+affects: [REQ-BOOK-001]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-001@v1 criterion 1 requires the Gallery to show every Book, and
+  criterion 6 requires fifty Books shown with no pagination control. No
+  criterion requires a query, filter or search control.
+
+analysis:
+  dependants: [REQ-BOOK-002]
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

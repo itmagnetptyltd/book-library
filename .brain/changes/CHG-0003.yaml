@@ -1,0 +1,30 @@
+id: CHG-0003
+raised: 2026-08-21
+stream: scope_change
+title: "Cover images shown on each Book card"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Book cards must show cover images (thumbnail + full view option). Display cover on each book card (fallback if none).
+affects: [REQ-BOOK-002, REQ-BOOK-014]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-002@v1 criteria 1-5 fix the card contents as Book ID, Name,
+  Author, Language and Price. REQ-BOOK-014@v1 criterion 3 refers to all
+  five of its fields. Five fields, no image.
+
+analysis:
+  dependants: [REQ-BOOK-001]
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

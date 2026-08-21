@@ -1,0 +1,33 @@
+id: CHG-0009
+raised: 2026-08-21
+stream: scope_change
+title: "Cancel closes the modal and resets the form"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Cancel Button: Currently does nothing - should close modal and reset form.
+affects: [REQ-BOOK-005, REQ-BOOK-006]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: contradicts
+evidence: >-
+  The reset-the-form half is ruled out by REQ-BOOK-006@v1 criterion 7,
+  which requires that a typed value is still shown when the form is
+  redisplayed without being submitted. The close-the-modal half is covered
+  by no criterion, but a Cancel control that closes the modal is already
+  delivered and working, so only the reset is chargeable. The premise that
+  Cancel does nothing is incorrect - see FB-0001.
+
+analysis:
+  dependants: []
+  tests_invalidated: 8
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

@@ -1,0 +1,31 @@
+id: CHG-0006
+raised: 2026-08-21
+stream: scope_change
+title: "An icon set on controls, including a trash icon for delete"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Add icons (FontAwesome or Material Icons). Delete: Trash icon with confirmation modal.
+affects: [REQ-BOOK-003, REQ-BOOK-013]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-003@v1 criterion 1 requires only that the card carries a Delete
+  control - no glyph or icon library is specified. Note that
+  REQ-BOOK-013@v1 requires every declared runtime dependency to carry a
+  recorded reason naming the behaviour that needs it.
+
+analysis:
+  dependants: []
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

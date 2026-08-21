@@ -1,0 +1,30 @@
+id: CHG-0008
+raised: 2026-08-21
+stream: scope_change
+title: "Loading state while a Book is added or deleted"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  No Loading States: No feedback when adding/deleting books.
+affects: [REQ-BOOK-007, REQ-BOOK-008, REQ-BOOK-009]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-008@v1 criterion 1 governs the post-completion state only - the
+  card is shown once the submission completes. No criterion requires an
+  in-flight indicator.
+
+analysis:
+  dependants: []
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

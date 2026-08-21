@@ -1,0 +1,30 @@
+id: CHG-0007
+raised: 2026-08-21
+stream: scope_change
+title: "A dark/light mode toggle"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  No Dark/Light Mode: Not required but expected in modern apps.
+affects: [REQ-BOOK-001, REQ-BOOK-014]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  No criterion in REQ-BOOK-001, REQ-BOOK-002 or REQ-BOOK-014 requires a
+  theme, a colour mode, or any user-settable display preference. The
+  report itself marks this as not required.
+
+analysis:
+  dependants: []
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []

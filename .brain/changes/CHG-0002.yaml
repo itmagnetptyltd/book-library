@@ -1,0 +1,31 @@
+id: CHG-0002
+raised: 2026-08-21
+stream: scope_change
+title: "Cover photo upload in the Add Book form"
+source: >-
+  FB-0001, UI/UX and functional review received 2026-08-21. The report
+  carries no author; confirm who raised it before acting on this record.
+raw: |
+  Add an input[type="file"] in the Add Book form. Accept .jpg, .png, .webp. Show a preview thumbnail before submitting.
+affects: [REQ-BOOK-006, REQ-BOOK-007, REQ-BOOK-012]
+
+# Judged by variation-agent against the agreed requirement text alone -
+# not against the code, the plans or anyone's view of what ought to be included.
+coverage: not-covered
+evidence: >-
+  REQ-BOOK-006@v1 enumerates every required entry control - Name, Author,
+  Language, Price - and explicitly requires no control for Book ID and
+  none for currency. No criterion requires a file or image control.
+  Nothing rules it out either; it is simply absent from the agreed scope.
+
+analysis:
+  dependants: [REQ-BOOK-008]
+  tests_invalidated: 0
+  estimate: "not estimated"
+
+# Deliberately blank. Absorbed, varied, deferred or declined is not ours to
+# decide, and neither is the price.
+decision:
+commercial:
+
+outcome: []
