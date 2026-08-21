@@ -220,8 +220,8 @@
   title: Submitting the Add Book form adds the new Book to the Library
   module: BOOK
   priority: must
-  status: agreed
-  version: 1
+  status: draft
+  version: 2
   source: >-
     Client brief, ITMagnet - Test, email 2026-08-19 ("After submitting the form,
     the new book should be added to the library"); clarified by client answers
@@ -260,7 +260,17 @@
     - given: A Book has been added
       when: Its Book card is shown in the Gallery
       then: No control for changing that Book's details is present
-  ambiguities: []
+  ambiguities:
+    - What is the largest Price a Book may carry?
+  history:
+    - version: 1
+      agreed: 2026-08-21
+      superseded_by: 2
+      summary: >-
+        v1 required that the Library return a Book carrying exactly the entered
+        details, with no limit on Price. Superseded by CHG-0001: a Price whose
+        poisha exceeds Number.MAX_SAFE_INTEGER cannot be stored exactly, and v1
+        was silently violated for such values rather than refusing them.
   depends_on:
     - REQ-BOOK-006
     - REQ-BOOK-012

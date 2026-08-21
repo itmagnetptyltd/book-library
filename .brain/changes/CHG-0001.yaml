@@ -1,0 +1,69 @@
+id: CHG-0001
+raised: 2026-08-21
+stream: discovered_constraint
+
+# No client said anything. Reality contradicted the requirement, and it was found
+# in a code review of the Add-a-Book and Delete-a-Book slices.
+source: >-
+  Multi-agent code review, 2026-08-21. Reproduced by direct measurement against
+  src/library/library-store.js before and after the fix.
+
+# `raw` is normally the client's exact words. There are none: this is what was
+# measured, which is the equivalent evidence for a constraint.
+raw: |
+  A Price of "99999999999999999999.00" was accepted by the Add Book form,
+  converted to poisha through JavaScript number arithmetic, and read back as a
+  DIFFERENT number, with no error at any point:
+
+      pattern accepts "99999999999999999999.00"?  true
+      minor units: 1e+22   Number.isSafeInteger? false
+      round trip: 99999999999999999999.00 -> 100000000000000000000.00
+      identical? false
+
+  REQ-BOOK-007's first acceptance criterion says "The Library returns a Book
+  carrying exactly those entered details". For any Price whose poisha exceeds
+  Number.MAX_SAFE_INTEGER (9007199254740991) it did not, and cannot, without
+  changing how a Price is stored.
+
+affects: [REQ-BOOK-007, REQ-BOOK-006]
+
+analysis:
+  dependants: [REQ-BOOK-008]
+  tests_invalidated: 11
+  estimate: >-
+    The defect is already fixed - the whole part of a Price is capped at 12
+    digits - so no build work follows from the cap itself. What remains depends
+    entirely on the client's answer: confirming the cap is minutes; storing
+    large Prices exactly means price_minor stops being a JavaScript number,
+    which reopens REQ-BOOK-012 and needs a data migration - a day or more.
+
+# Deliberately blank. The client has not been asked.
+decision:
+commercial:
+
+outcome:
+  - REQ-BOOK-007: v2
+  - REQ-BOOK-006: unchanged
+
+# ---------------------------------------------------------------------------
+# What the client actually has to decide
+#
+# The fix introduces a maximum Price of 999,999,999,999.99 BDT. Nobody agreed
+# to that. Three readings:
+#
+#   (a) The cap is fine - no Book costs a trillion taka. Confirm it, and
+#       REQ-BOOK-007 v2 states the limit plainly so it is agreed rather than
+#       merely true.
+#   (b) A cap is fine but the number is wrong. They name a different maximum.
+#   (c) Prices must be stored exactly at any magnitude. Then the storage
+#       changes and REQ-BOOK-012 reopens with it.
+#
+# Doing nothing is not among the options: before the fix the application
+# silently stored a Price different from the one entered, which is worse than
+# refusing it.
+#
+# Note on the id: CHG-0001 was allocated to this record on 2026-08-21 in a
+# commit lost when the repository was re-initialised. Ids are never reused, and
+# restoring a record to the id it already held is not reuse. The reservation is
+# recorded in the message of commit 3db45f7.
+# ---------------------------------------------------------------------------
