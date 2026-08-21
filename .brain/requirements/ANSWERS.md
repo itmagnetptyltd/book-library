@@ -125,3 +125,192 @@ A plain, tidy, modern and user-friendly layout is acceptable. There is no specif
 ## Which Node.js version, operating system and browser must the application work on?
 
 The application should work on the local development PC using a currently supported Node.js version and a modern desktop browser. No specific operating system or browser version is required beyond the local development environment.
+
+---
+
+# Answers — second brief, 2026-08-21
+
+The questions below arise from the second brief in `BRIEF.md` and are listed in
+`AMBIGUITIES.md`. Paste the reply under the question it answers, in their words,
+not a summary. Then run `/resolve-ambiguities`.
+
+Leave a question untouched if it was not answered. An unanswered question stays
+open and the requirements it affects stay `draft`. Do not fill one in on anyone
+else’s behalf.
+
+**None of this is agreed scope.** The same asks are open change records,
+`CHG-0002` … `CHG-0012`, with blank `decision` and `commercial` fields. An answer
+here settles what a thing means; it does not settle who pays for it.
+
+---
+
+## About the new draft requirements (REQ-BOOK-015 … REQ-BOOK-032)
+
+### Is a Cover Photo part of a Book, or a separate thing the Library holds?
+
+<their answer>
+
+### May a Book be added without a Cover Photo?
+
+<their answer>
+
+### How many Cover Photos may one Book carry?
+
+<their answer>
+
+### What is the largest Cover Photo file the application must accept?
+
+<their answer>
+
+### Are the High, Medium and Low markings in the second brief the client's own priorities?
+
+<their answer>
+
+### Is a Cover Photo file refused on its extension, on its content, or on both?
+
+<their answer>
+
+### What should a person see when a chosen Cover Photo file is refused?
+
+<their answer>
+
+### Does clearing the Add Book form after a successful add also clear the chosen Cover Photo and its preview?
+
+<their answer>
+
+### Where is a Cover Photo held, and does it stay on the local development PC?
+
+<their answer>
+
+### When a Book is deleted, is its Cover Photo deleted too?
+
+<their answer>
+
+### May a Book's Cover Photo be changed after that Book has been added?
+
+<their answer>
+
+### Must a Book card still show all five Book fields unclipped once a Cover Photo is added to it?
+
+<their answer>
+
+### What should a Book card show in place of a Cover Photo when its Book has none?
+
+<their answer>
+
+### What does opening a Cover Photo at "full view" mean?
+
+<their answer>
+
+### Are Search and Filter one feature or two?
+
+<their answer>
+
+### What does "search by title" mean, when the Book field is called Name?
+
+<their answer>
+
+### Which Book fields must a search term match, and must it match a whole value or part of one?
+
+<their answer>
+
+### What must the Gallery show when a search term matches no Book?
+
+<their answer>
+
+### When a search term narrows the Gallery, does REQ-BOOK-001's requirement to show every Book still hold?
+
+<their answer>
+
+### Who chooses dark mode, and is the choice remembered after a restart?
+
+<their answer>
+
+### Is a named colour palette and font now required, when REQ-BOOK-001 says none must be matched?
+
+<their answer>
+
+### How slow must an operation be before a loading state is shown?
+
+<their answer>
+
+### What does a loading state look like, and where does it appear?
+
+<their answer>
+
+### Where does a success message appear, how long does it stay, and how is it dismissed?
+
+<their answer>
+
+### Does a toast or snackbar replace the in-form error message REQ-BOOK-007 already requires, or sit alongside it?
+
+<their answer>
+
+### Which icon set is to be used, and does adding it satisfy REQ-BOOK-013?
+
+<their answer>
+
+### Which controls must carry an icon?
+
+<their answer>
+
+### Does "clear form after successful add" also clear the form after a submission the application refuses?
+
+<their answer>
+
+### Does "disable the Add Book button while submitting" mean the "+ Add Book" control on the Home page or the submit control inside the Add Book form?
+
+<their answer>
+
+---
+
+## About requirements that are already agreed
+
+### Is Edit now in scope, when REQ-BOOK-007 and REQ-BOOK-012 both require that no operation changes a stored Book?
+
+<their answer>
+
+### Are phone and tablet layouts now in scope, when REQ-BOOK-014 says they are not?
+
+<their answer>
+
+### Does the request for a delete confirmation dialog ask for anything REQ-BOOK-009 does not already require?
+
+<their answer>
+
+### Does the request for localStorage persistence ask for anything REQ-BOOK-012 does not already require?
+
+<their answer>
+
+### Does the request for form validation ask for anything REQ-BOOK-006 and REQ-BOOK-007 do not already require?
+
+<their answer>
+
+### Does the request for a modal with overlay ask for anything REQ-BOOK-005 does not already require?
+
+<their answer>
+
+### Must the Cancel control reset the Add Book form, when REQ-BOOK-006 requires typed values to survive redisplay?
+
+<their answer>
+
+---
+
+## About the document itself
+
+### Who wrote the second brief, and does the client endorse it as a change to the agreed scope?
+
+<their answer>
+
+### Was the second brief written against the running application, or against the current design mockup its Attachments name?
+
+<their answer>
+
+
+---
+
+## Raised by a change record, not by a brief
+
+### What is the largest Price a Book may carry?
+
+<their answer>

@@ -89,4 +89,27 @@ distinguishable. Each was raised as an ambiguity and closed by the client on
 
 ## Appears in source documents, not yet defined
 
-_(none — all 25 questions raised at decomposition were answered on 2026-08-21)_
+All 25 terms raised at the first decomposition were settled on 2026-08-21. The
+six below arrive with the second brief of 2026-08-21 (`BRIEF.md`) and are **not
+defined by anyone yet**. Each has a matching question in `AMBIGUITIES.md`.
+
+- **Cover / Cover Photo** — an image associated with a Book. Whether it is part
+  of a Book, how many there may be, whether one is required, and what happens to
+  a Book that has none, are all unstated.
+- **Edit** — changing a stored Book's details. Directly contradicts the agreed
+  meaning of the Library today, in which a Book is deleted and added again; see
+  the entry for **Delete** above and `CHG-0004`.
+- **Search / Filter** — finding a subset of the Library. Whether these are one
+  feature or two, and what "search by title" means when the field is called
+  **Name**, is unstated.
+- **Dark mode / Light mode** — a display preference. Who chooses it, and whether
+  the choice is remembered, is unstated.
+- **Loading state** — feedback shown while an operation is in flight. Not
+  defined against any duration or threshold.
+- **Toast / Snackbar** — a transient message. Its duration, position and
+  dismissal behaviour are unstated, and the term is a UI-library convention
+  rather than a domain term.
+
+**None of these is agreed scope.** Every one arrived in a report whose asks are
+recorded as open change records (`CHG-0002` … `CHG-0012`) with blank `decision`
+and `commercial` fields.

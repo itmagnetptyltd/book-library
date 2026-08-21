@@ -459,3 +459,531 @@
   ambiguities: []
   depends_on:
     - REQ-BOOK-001
+
+# ---------------------------------------------------------------------------
+# Appended 2026-08-21 — decomposition of the SECOND source brief.
+#
+# Source: .brain/requirements/BRIEF.md, "# Source brief — 2026-08-21", an
+# unattributed written report addressed "To: Development Team".
+#
+# Read the notes that accompany that brief in BRIEF.md before reading these.
+# In particular:
+#
+#   * Nobody has agreed to any of this. The same text is FB-0001 and was split
+#     into CHG-0002 … CHG-0012, every one of which still carries a blank
+#     `decision` and a blank `commercial` field. Every requirement below is
+#     therefore `draft` and stays `draft`.
+#
+#   * NOT every ask in that document became a requirement here. Two categories
+#     were deliberately left out and recorded as questions in AMBIGUITIES.md
+#     instead:
+#       - asks already satisfied by an agreed requirement (delete confirmation,
+#         persistence, validation, the modal, the responsive reflow);
+#       - asks that contradict an agreed requirement (Edit, phone and tablet
+#         layouts, a named colour palette and font, resetting the form on
+#         Cancel).
+#     Writing a requirement for either would have silently overwritten an
+#     agreed one.
+#
+#   * Six terms these requirements need — Cover / Cover Photo, Edit, Search /
+#     Filter, Dark mode, Loading state, Toast / Snackbar — are listed in
+#     `.brain/glossary.md` under "Appears in source documents, not yet
+#     defined". They are used below because the brief uses them, not because
+#     they mean anything agreed yet.
+#
+#   * `priority` below mirrors the 🔴/🟡/🟢 markings in the reviewer's own
+#     tables (High -> must, Medium -> should, Low -> could). Whether those
+#     markings are the client's is itself an open question, carried on every
+#     requirement below.
+# ---------------------------------------------------------------------------
+
+- id: REQ-BOOK-015
+  title: The Add Book form presents a control for choosing a Cover Photo file
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 1, Cover Photo Support ("Add an input[type="file"] in the Add Book
+    form"), read with the Critical Missing Features row "Cover Photo Upload —
+    No field or preview for book covers"
+  acceptance:
+    - given: The Add Book form is shown
+      when: It is displayed
+      then: It presents a file-choosing control for a Cover Photo
+    - given: The Add Book form is shown
+      when: A file is chosen through that control
+      then: The name of the chosen file is shown in the Add Book form
+    - given: The Add Book form is shown and a file has been chosen
+      when: A different file is chosen through the same control
+      then: The name of the newly chosen file is shown in place of the previous one
+  ambiguities:
+    - Is a Cover Photo part of a Book, or a separate thing the Library holds?
+    - May a Book be added without a Cover Photo?
+    - How many Cover Photos may one Book carry?
+    - What is the largest Cover Photo file the application must accept?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-006
+
+- id: REQ-BOOK-016
+  title: The Add Book form accepts only .jpg, .png and .webp files as a Cover Photo
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 1, Cover Photo Support ("Accept .jpg, .png, .webp.")
+  acceptance:
+    - given: The Add Book form is shown
+      when: A file whose name ends in .jpg is chosen as the Cover Photo
+      then: The form accepts that file as the Cover Photo
+    - given: The Add Book form is shown
+      when: A file whose name ends in .png is chosen as the Cover Photo
+      then: The form accepts that file as the Cover Photo
+    - given: The Add Book form is shown
+      when: A file whose name ends in .webp is chosen as the Cover Photo
+      then: The form accepts that file as the Cover Photo
+    - given: The Add Book form is shown
+      when: A file whose name ends in .gif is chosen as the Cover Photo
+      then: The form refuses that file as a Cover Photo
+    - given: The Add Book form is shown and a file the form refuses has been chosen
+      when: The form is submitted
+      then: No Book is added to the Library
+  ambiguities:
+    - Is a Cover Photo file refused on its extension, on its content, or on both?
+    - What should a person see when a chosen Cover Photo file is refused?
+    - What is the largest Cover Photo file the application must accept?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-015
+
+- id: REQ-BOOK-017
+  title: The Add Book form shows a preview of the chosen Cover Photo before submission
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 1, Cover Photo Support ("Show a preview thumbnail before submitting."),
+    repeated in Acceptance Criteria ("Cover photo upload + preview in Add form.")
+  acceptance:
+    - given: The Add Book form is shown and no Cover Photo file has been chosen
+      when: It is displayed
+      then: No Cover Photo preview is shown in the Add Book form
+    - given: The Add Book form is shown
+      when: A Cover Photo file the form accepts is chosen
+      then: A preview image of that file is shown in the Add Book form before the form is submitted
+    - given: The Add Book form is shown with a preview of a chosen Cover Photo
+      when: A different Cover Photo file the form accepts is chosen
+      then: The preview shows the newly chosen file
+  ambiguities:
+    - Is a Cover Photo part of a Book, or a separate thing the Library holds?
+    - Does clearing the Add Book form after a successful add also clear the chosen Cover Photo and its preview?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-015
+
+- id: REQ-BOOK-018
+  title: A Cover Photo chosen in the Add Book form is retained with its Book
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 1, Cover Photo Support ("Display cover on each book card (fallback if
+    none)."), read with the Acceptance Criteria line "Data persists after page
+    refresh (localStorage)." A cover the card must display after a refresh has
+    to be retained somewhere; where is an open question below
+  acceptance:
+    - given: The Add Book form is shown with a Book's details entered and a Cover Photo chosen
+      when: The form is submitted and the Book is added
+      then: The Library returns that Book carrying that Cover Photo
+    - given: A Book carrying a Cover Photo has been added
+      when: The application is stopped and started again
+      then: The Library still returns that Book carrying that Cover Photo
+    - given: The Add Book form is shown with a Book's details entered and no Cover Photo chosen
+      when: The form is submitted and the Book is added
+      then: The Library returns that Book carrying no Cover Photo
+  ambiguities:
+    - Is a Cover Photo part of a Book, or a separate thing the Library holds?
+    - May a Book be added without a Cover Photo?
+    - How many Cover Photos may one Book carry?
+    - What is the largest Cover Photo file the application must accept?
+    - Where is a Cover Photo held, and does it stay on the local development PC?
+    - When a Book is deleted, is its Cover Photo deleted too?
+    - May a Book's Cover Photo be changed after that Book has been added?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-015
+    - REQ-BOOK-007
+    - REQ-BOOK-012
+
+- id: REQ-BOOK-019
+  title: Each Book card shows the Cover Photo of the Book it represents
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Critical Missing Features
+    row "Cover Display — Book cards must show cover images (thumbnail + full
+    view option)"; repeated in Acceptance Criteria ("Cover images displayed on
+    each book card.")
+  acceptance:
+    - given: A Book carrying a Cover Photo
+      when: Its Book card is shown in the Gallery
+      then: The card shows that Cover Photo as an image
+    - given: Two Books, each carrying a different Cover Photo
+      when: The Gallery is shown
+      then: Each Book card shows the Cover Photo of the Book it represents
+  ambiguities:
+    - Is a Cover Photo part of a Book, or a separate thing the Library holds?
+    - How many Cover Photos may one Book carry?
+    - Must a Book card still show all five Book fields unclipped once a Cover Photo is added to it?
+    - May a Book's Cover Photo be changed after that Book has been added?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-018
+    - REQ-BOOK-002
+
+- id: REQ-BOOK-020
+  title: A Book card whose Book carries no Cover Photo shows a fallback in its place
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 1, Cover Photo Support ("Display cover on each book card (fallback if
+    none).")
+  acceptance:
+    - given: A Book carrying no Cover Photo
+      when: Its Book card is shown in the Gallery
+      then: A fallback image is shown in the place the Cover Photo would occupy
+    - given: A Book carrying no Cover Photo
+      when: Its Book card is shown in the Gallery
+      then: No broken-image indicator is shown on that card
+  ambiguities:
+    - May a Book be added without a Cover Photo?
+    - What should a Book card show in place of a Cover Photo when its Book has none?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-019
+
+- id: REQ-BOOK-021
+  title: A Book card's Cover Photo can be opened at a larger view
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Critical Missing Features
+    row "Cover Display — Book cards must show cover images (thumbnail + full
+    view option)"
+  acceptance:
+    - given: A Book card showing a Cover Photo
+      when: That Cover Photo is activated
+      then: The Cover Photo is shown at a size larger than the one shown on the card
+    - given: A Cover Photo is shown at the larger view
+      when: The larger view is dismissed
+      then: The Gallery is shown again
+    - given: A Book card whose Book carries no Cover Photo
+      when: The fallback shown in the Cover Photo's place is activated
+      then: No larger view is opened
+  ambiguities:
+    - What does opening a Cover Photo at "full view" mean?
+    - How many Cover Photos may one Book carry?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-019
+
+- id: REQ-BOOK-022
+  title: The Home page carries a control for entering a search term
+  module: BOOK
+  priority: could
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Usability & Interaction
+    Feedback row "No Search/Filter — As library grows, search by
+    title/author/language becomes essential"
+  acceptance:
+    - given: The application is running
+      when: The Home page is opened
+      then: A control for entering a search term is present on the Home page
+    - given: The Home page has just been opened
+      when: No search term has been entered
+      then: The search term control is empty
+  ambiguities:
+    - Are Search and Filter one feature or two?
+    - What does "search by title" mean, when the Book field is called Name?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-023
+  title: The Gallery shows only the Books matching the entered search term
+  module: BOOK
+  priority: could
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Usability & Interaction
+    Feedback row "No Search/Filter — As library grows, search by
+    title/author/language becomes essential"
+  acceptance:
+    - given: The Library holds a Book whose Name is Gitanjali and a Book whose Name is Devdas
+      when: The search term Gitanjali is entered
+      then: The Gallery shows exactly one Book card
+    - given: The Library holds a Book whose Name is Gitanjali and a Book whose Name is Devdas
+      when: The search term Gitanjali is entered
+      then: The Book card shown is the one for the Book whose Name is Gitanjali
+    - given: A search term has narrowed the Gallery
+      when: The search term is cleared
+      then: The Gallery shows a Book card for every Book in the Library
+  ambiguities:
+    - Are Search and Filter one feature or two?
+    - What does "search by title" mean, when the Book field is called Name?
+    - Which Book fields must a search term match, and must it match a whole value or part of one?
+    - What must the Gallery show when a search term matches no Book?
+    - When a search term narrows the Gallery, does REQ-BOOK-001's requirement to show every Book still hold?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-022
+
+- id: REQ-BOOK-024
+  title: The Home page offers a choice between dark mode and light mode
+  module: BOOK
+  priority: could
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Design & UI Issues row "No
+    Dark/Light Mode — Not required but expected in modern apps"
+  acceptance:
+    - given: The application is running
+      when: The Home page is opened
+      then: A control for choosing between dark mode and light mode is present on the Home page
+    - given: The Home page is displayed in light mode
+      when: Dark mode is chosen
+      then: The Home page's background colour differs from the one it showed in light mode
+    - given: The Home page is displayed in dark mode
+      when: Light mode is chosen
+      then: The Home page's background colour returns to the one it showed in light mode
+  ambiguities:
+    - Who chooses dark mode, and is the choice remembered after a restart?
+    - Is a named colour palette and font now required, when REQ-BOOK-001 says none must be matched?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-025
+  title: A loading state is shown while a Book is being added
+  module: BOOK
+  priority: could
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Design & UI Issues row "No
+    Loading States — No feedback when adding/deleting books"
+  acceptance:
+    - given: The Add Book form has been submitted with all details entered
+      when: The submission is in flight and has not yet completed
+      then: A loading state is shown in the Add Book form
+    - given: A loading state is shown while a Book is being added
+      when: The Book is added and the submission completes
+      then: The loading state is no longer shown
+    - given: A loading state is shown while a submission is in flight
+      when: The application refuses the submission
+      then: The loading state is no longer shown
+  ambiguities:
+    - How slow must an operation be before a loading state is shown?
+    - What does a loading state look like, and where does it appear?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-007
+
+- id: REQ-BOOK-026
+  title: A loading state is shown while a Book is being deleted
+  module: BOOK
+  priority: could
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Design & UI Issues row "No
+    Loading States — No feedback when adding/deleting books"
+  acceptance:
+    - given: A Book card's Delete control has been activated and the deletion confirmed
+      when: The deletion is in flight and has not yet completed
+      then: A loading state is shown on that Book card
+    - given: A loading state is shown while a Book is being deleted
+      when: The deletion completes
+      then: The loading state is no longer shown
+    - given: A confirmation has been requested for deleting a Book
+      when: The person declines it
+      then: No loading state is shown
+  ambiguities:
+    - How slow must an operation be before a loading state is shown?
+    - What does a loading state look like, and where does it appear?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-009
+
+- id: REQ-BOOK-027
+  title: A success message is shown after a Book is added
+  module: BOOK
+  priority: should
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Usability & Interaction
+    Feedback row "No Success/Error Messages — User gets no feedback after
+    Add/Delete actions", read with the Acceptance Criteria line "Feedback
+    messages (toast/snackbar) for actions."
+  acceptance:
+    - given: The Add Book form has been submitted with all details entered
+      when: The Book is added to the Library
+      then: A message stating that the Book was added is shown
+    - given: A submission that the application refuses
+      when: The Add Book form is submitted
+      then: No message stating that the Book was added is shown
+  ambiguities:
+    - Where does a success message appear, how long does it stay, and how is it dismissed?
+    - Does a toast or snackbar replace the in-form error message REQ-BOOK-007 already requires, or sit alongside it?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-007
+
+- id: REQ-BOOK-028
+  title: A success message is shown after a Book is deleted
+  module: BOOK
+  priority: should
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Usability & Interaction
+    Feedback row "No Success/Error Messages — User gets no feedback after
+    Add/Delete actions", read with the Acceptance Criteria line "Feedback
+    messages (toast/snackbar) for actions."
+  acceptance:
+    - given: A Book card's Delete control has been activated and the deletion confirmed
+      when: The Book is removed from the Library
+      then: A message stating that the Book was deleted is shown
+    - given: A confirmation has been requested for deleting a Book
+      when: The person declines it
+      then: No message stating that the Book was deleted is shown
+  ambiguities:
+    - Where does a success message appear, how long does it stay, and how is it dismissed?
+    - Does a toast or snackbar replace the in-form error message REQ-BOOK-007 already requires, or sit alongside it?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-009
+
+- id: REQ-BOOK-029
+  title: The Delete control on a Book card is presented as a trash icon
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 3, Complete CRUD Operations ("Delete: Trash icon with confirmation
+    modal.")
+  acceptance:
+    - given: A Book card is shown in the Gallery
+      when: The Home page is displayed
+      then: That card's Delete control shows a trash icon
+    - given: The Library holds three Books
+      when: The Home page is displayed
+      then: Each of the three Delete controls shows the same trash icon
+  ambiguities:
+    - Which icon set is to be used, and does adding it satisfy REQ-BOOK-013?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-003
+
+- id: REQ-BOOK-030
+  title: Each control on the Home page carries an icon
+  module: BOOK
+  priority: must
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 2, Modern Design System ("Add icons (FontAwesome or Material Icons)."),
+    read with the Design & UI Issues row "Missing Icons/Visuals — No cover
+    images, generic typography, flat buttons"
+  acceptance:
+    - given: The Home page is displayed
+      when: The "+ Add Book" control is shown
+      then: That control carries an icon
+    - given: The Home page is displayed
+      when: Its controls are listed
+      then: Every one of them carries an icon
+  ambiguities:
+    - Which icon set is to be used, and does adding it satisfy REQ-BOOK-013?
+    - Which controls must carry an icon?
+    - Is a named colour palette and font now required, when REQ-BOOK-001 says none must be matched?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-001
+
+- id: REQ-BOOK-031
+  title: The Add Book form's entry controls are cleared after a Book is added
+  module: BOOK
+  priority: should
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 5, Form Improvements ("Clear form after successful add.")
+  acceptance:
+    - given: A Book has been added through the Add Book form
+      when: The Add Book form is opened again
+      then: The Name entry control is empty
+    - given: A Book has been added through the Add Book form
+      when: The Add Book form is opened again
+      then: The Author entry control is empty
+    - given: A Book has been added through the Add Book form
+      when: The Add Book form is opened again
+      then: The Language entry control is empty
+    - given: A Book has been added through the Add Book form
+      when: The Add Book form is opened again
+      then: The Price entry control is empty
+  ambiguities:
+    - Does clearing the Add Book form after a successful add also clear the chosen Cover Photo and its preview?
+    - Does "clear form after successful add" also clear the form after a submission the application refuses?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-006
+    - REQ-BOOK-007
+
+- id: REQ-BOOK-032
+  title: The Add Book form's submit control is disabled while a submission is in flight
+  module: BOOK
+  priority: should
+  status: draft
+  version: 1
+  source: >-
+    Second brief, unattributed reviewer, 2026-08-21, Recommended Improvements
+    item 5, Form Improvements ("Disable "Add Book" button while submitting.")
+  acceptance:
+    - given: The Add Book form is shown with all details entered
+      when: The form is submitted and the submission has not yet completed
+      then: The form's submit control is disabled
+    - given: The form's submit control is disabled while a submission is in flight
+      when: That control is activated again
+      then: No second Book is added to the Library
+    - given: A submission that the application refuses
+      when: The refusal is returned to the Add Book form
+      then: The form's submit control is enabled again
+  ambiguities:
+    - Does "disable the Add Book button while submitting" mean the "+ Add Book" control on the Home page or the submit control inside the Add Book form?
+    - Are the High, Medium and Low markings in the second brief the client's own priorities?
+  depends_on:
+    - REQ-BOOK-006
